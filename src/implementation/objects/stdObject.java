@@ -6,27 +6,22 @@ import implementation.ConsoleObject;
 import java.lang.reflect.Method;
 
 public class stdObject extends ConsoleObject {
-	
+
 	Class objectClass;
 	Object instance;
 
 	public stdObject(String ObjectName, String name, Object... InstanceArgs) {
-		
 		super(ObjectName, InstanceArgs);
-		System.out.println(ObjectName +" "+name);
-		try {
-			objectClass = Class.forName(name);
-			instance = objectClass.newInstance();
+		
+	}
 
-			for (Method s : objectClass.getMethods()) {
-				regester(new ConsoleCommand(s.getName(), s.getName(), instance));
-			}
-
-			created = true;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public Class[] getConstructorData(Object[] ss) {
+		Class[] ret = new Class[ss.length];
+		int x = 0;
+		for (Object s : ss) {
+			ret[x++] = s.getClass();
 		}
+		return ret;
 	}
 
 	// getConstructors()[0].newInstance(parse(objectClass.getConstructors()[0].getParameterTypes(),

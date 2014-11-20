@@ -30,14 +30,18 @@ public class ConsoleCommand extends ConsoleObject {
 
 	@Override
 	public void invoke(String[] args) {
-		if (Breaker.showDebugData)
+		if (Breaker.showDebugData){
 			System.out.println("[CONSOLECOMMAND]["+getName()+"][INVOLKE]");
+		}
 		Class[] params =Target.getParameterTypes();
 		Object[] Args = new Object[params.length];
 		
+		if (Breaker.showDebugData)
+			System.out.println("[CONSOLECOMMAND]["+getName()+"][INVOLKE][ExpectedArgs] : "+getClassNames(params)[0]);
+		
 		if(args.length<Args.length){
 			System.err.println("Insufitient args");
-			System.out.print("The propper syntax is : \n"+Command);
+			System.out.print("The propper syntax is : \n"+Command+" ");
 			for(Class s:params)
 				System.out.print(s.getSimpleName()+" ");
 			return;
@@ -47,7 +51,7 @@ public class ConsoleCommand extends ConsoleObject {
 			if(params[x].equals(String.class))
 				Args[x] = args[x];
 			if(params[x].equals(Integer.class))
-				Args[x] = Integer.parseInt(args[x]);
+				Args[x] = Integer.parseInt(args[x]); 
 			x++;
 		}
 		try {
@@ -56,6 +60,15 @@ public class ConsoleCommand extends ConsoleObject {
 			System.out.println("[CONSOLECOMMAND]["+getName()+"][INVOLKE][ERROR] : ");
 			e.printStackTrace();
 		}
+	}
+	
+	private String[] getClassNames(Class[] data){
+		String[] ret = new String[data.length];
+		int x = 0;
+		for(Class s:data){
+			ret[x++] = s.getName(); 
+		}
+		return ret;
 	}
 
 	@Override

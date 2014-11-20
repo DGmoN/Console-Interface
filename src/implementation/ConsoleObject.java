@@ -29,7 +29,7 @@ public class ConsoleObject extends ConsoleContainer {
 		return Name;
 	}
 
-	public void makeStdObject(String OName, String name, String... args) {
+	public void makeStdObject(String OName, String name, String[] args) {
 		this.regester(new stdObject(OName, name, args));
 	}
 
@@ -41,15 +41,15 @@ public class ConsoleObject extends ConsoleContainer {
 		System.out.println("Listing commands : \n");
 		for (ConsoleObject ss : Objects) {
 			if (ss.toString().contains("Command"))
-				System.out.println(ss.getName());
+				System.out.println(" "+ss.getName());
 		}
 	}
 
 	public void listObjects() {
-		System.out.println("Listing objects : \n");
+		System.out.println("Listing objects : ");
 		for (ConsoleObject ss : Objects) {
 			if (!ss.toString().contains("Command"))
-				System.out.println(ss.getName());
+				System.out.println(" "+ss.getName());
 		}
 	}
 
